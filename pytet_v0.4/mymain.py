@@ -107,11 +107,13 @@ def readKeyWithTimeOut():
 	registerAlarm(timeout_handler, 1)
 	try:
 		key = readKey()
+		unregisterAlarm()
 		return key
 	except RuntimeError as e:
 		pass # print('readkey() interrupted!')
 
 	return
+
  
 def rotate(m_array):
     size = len(m_array)
