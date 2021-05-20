@@ -7,17 +7,16 @@ from matrix import *
 
 class ColorDecorator(Game):
     
-    setOfCBlockObjects = 0
 
     def initCBlocks(self, setOfBlockObjects): # self.initCBlocks(game.setOfBlockObjects)
 
-        ColorDecorator.setOfCBlockObjects = [[0]*self.game.nBlockDegrees for _ in range(self.game.nBlockTypes)]
+        self.setOfCBlockObjects = [[0]*self.game.nBlockDegrees for _ in range(self.game.nBlockTypes)]
                                                                          
         for i in range(self.game.nBlockTypes):
             for j in range(self.game.nBlockDegrees):
                 obj = Matrix(setOfBlockObjects[i][j])
                 obj.mulc(i+1)
-                ColorDecorator.setOfCBlockObjects[i][j] = obj
+                self.setOfCBlockObjects[i][j] = obj
         return
 
 
@@ -36,7 +35,7 @@ class ColorDecorator(Game):
             self.iCScreen = Matrix(self.oCScreen)
             
         state = self.game.accept(key)
-        self.CurrCBlk = ColorDecorator.setOfCBlockObjects[self.game.idxBlockType][self.game.idxBlockDegree]
+        self.CurrCBlk = self.setOfCBlockObjects[self.game.idxBlockType][self.game.idxBlockDegree]
 
         self.tempCBlk = self.iCScreen.clip(self.game.top, self.game.left, self.game.top+self.CurrCBlk.get_dy(), self.game.left+self.CurrCBlk.get_dx())
         self.tempCBlk = self.tempCBlk + self.CurrCBlk
